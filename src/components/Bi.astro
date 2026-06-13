@@ -1,0 +1,12 @@
+---
+// Renders a bilingual text pair; CSS (.lang-en/.lang-zh) shows the active one.
+// Falls back to EN when ZH is blank (Spec §15).
+interface Props {
+  en: string;
+  zh?: string | undefined;
+  class?: string | undefined;
+}
+const { en, zh, class: cls } = Astro.props;
+---
+
+<span class:list={['lang-en', cls]}>{en}</span><span class:list={['lang-zh', cls]}>{zh && zh.trim() ? zh : en}</span>

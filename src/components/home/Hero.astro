@@ -1,0 +1,66 @@
+---
+import Bi from '../Bi.astro';
+import { en, zh } from '../../i18n';
+import { withBase } from '../../lib/dom';
+
+const arrow =
+  '<svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+---
+
+<section class="mx-auto max-w-6xl px-5 pt-16 pb-12 md:pt-24">
+  <div class="grid items-center gap-10 md:grid-cols-[1.5fr_1fr]">
+    <!-- Left: text -->
+    <div data-animate data-anim-y="20" data-anim-duration="600">
+      <p class="text-xs font-medium tracking-[0.2em] text-brand-mid uppercase">
+        <Bi en={en.hero.eyebrow} zh={zh.hero.eyebrow} />
+      </p>
+
+      <h1 class="mt-3 text-3xl leading-tight font-medium text-heading md:text-4xl">
+        <span class="lang-en">
+          {en.hero.h1.map((line, i) => (
+            <Fragment>{i > 0 && <br />}{line}</Fragment>
+          ))}
+        </span>
+        <span class="lang-zh">
+          {zh.hero.h1.map((line, i) => (
+            <Fragment>{i > 0 && <br />}{line}</Fragment>
+          ))}
+        </span>
+      </h1>
+
+      <p class="mt-3 text-base text-body">
+        <Bi en={en.hero.subtitle} zh={zh.hero.subtitle} />
+      </p>
+
+      <p class="mt-6 max-w-2xl leading-relaxed text-body">
+        <Bi en={en.hero.body} zh={zh.hero.body} />
+      </p>
+    </div>
+
+    <!-- Right: CTA pills -->
+    <div
+      class="flex flex-col gap-3 md:items-end"
+      data-stagger="120"
+      data-anim-x="12"
+      data-anim-duration="400"
+    >
+      <a
+        href={withBase('/research')}
+        data-animate
+        class="group inline-flex items-center justify-center gap-2 rounded-full bg-brand py-3 pr-6 pl-6 text-sm font-medium whitespace-nowrap text-white transition-[padding] duration-200 hover:bg-brand-dark hover:pr-7"
+      >
+        <Bi en={en.hero.ctaResearch} zh={zh.hero.ctaResearch} />
+        <span class="transition-transform duration-200 group-hover:translate-x-1" set:html={arrow} />
+      </a>
+
+      <a
+        href={withBase('/team')}
+        data-animate
+        class="group inline-flex items-center justify-center gap-2 rounded-full border border-brand-light py-3 pr-6 pl-6 text-sm font-medium whitespace-nowrap text-body transition-[padding] duration-200 hover:border-brand-mid hover:pr-7"
+      >
+        <Bi en={en.hero.ctaTeam} zh={zh.hero.ctaTeam} />
+        <span class="transition-transform duration-200 group-hover:translate-x-1" set:html={arrow} />
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+---
+import { SITE } from '../i18n/content';
+---
+
+<footer class="mt-20 border-t border-brand-light bg-surface">
+  <div class="mx-auto max-w-6xl px-5 py-8 text-sm text-body">
+    <p class="font-medium text-heading">
+      <span class="lang-en">{SITE.labName.en}</span>
+      <span class="lang-zh">{SITE.labName.zh}</span>
+    </p>
+    <p class="mt-2">
+      <span class="lang-en">{SITE.address.en}</span>
+      <span class="lang-zh">{SITE.address.zh}</span>
+    </p>
+    <p class="mt-1 text-muted">
+      Tel: {SITE.tel} &nbsp;·&nbsp; Email:
+      <a href={`mailto:${SITE.email}`} class="text-brand-mid hover:text-brand">
+        {SITE.email}
+      </a>
+    </p>
+  </div>
+</footer>

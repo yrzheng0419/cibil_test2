@@ -1,0 +1,73 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { en } from '../i18n';
+import { withBase } from '../lib/dom';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = en.meta.title, description = en.meta.description } = Astro.props;
+const ogImage = withBase('assets/og-default.png');
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en" data-lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href={withBase('assets/logo/CIBI_Lab_logo.png')} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph (Spec §17 — replace og-default.png before launch) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Fonts (Spec §3) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Noto+Sans+TC:wght@300;500&family=JetBrains+Mono:wght@400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Set language + drop no-js before first paint (avoids FOUC) -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.remove('no-js');
+        try {
+          var lang = localStorage.getItem('cibi:lang');
+          d.setAttribute('data-lang', lang === 'zh' ? 'zh' : 'en');
+        } catch (e) {
+          d.setAttribute('data-lang', 'en');
+        }
+      })();
+    </script>
+
+    <ClientRouter />
+  </head>
+
+  <body>
+    <Navbar />
+    <main transition:animate="slide">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import '../scripts/main.ts';
+    </script>
+  </body>
+</html>

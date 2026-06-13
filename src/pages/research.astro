@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { en, zh } from '../i18n';
+---
+
+<BaseLayout title={en.research.heading + ' · CIBI Lab'}>
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <h1 class="text-3xl font-medium">
+      <span class="lang-en">{en.research.heading}</span>
+      <span class="lang-zh">{zh.research.heading}</span>
+    </h1>
+    <p class="mt-4 text-muted">Phase C.</p>
+  </section>
+</BaseLayout>

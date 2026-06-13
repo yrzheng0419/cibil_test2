@@ -1,0 +1,99 @@
+---
+import Bi from '../Bi.astro';
+import { en, zh } from '../../i18n';
+import { PI } from '../../i18n/content';
+import { assetUrl } from '../../lib/dom';
+import { DOMAIN_TAG_CLASS } from '../../types';
+
+const photo = assetUrl('pi', PI.photo, 'default.jpg');
+---
+
+<section class="mx-auto max-w-6xl px-5 py-12">
+  <div class="grid gap-10 md:grid-cols-[1fr_2fr]">
+    <!-- Left: photo + identity -->
+    <div data-animate data-anim-scale="0.97" data-anim-duration="500">
+      <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-brand-wash">
+        <img
+          src={photo}
+          alt={PI.name.en}
+          class="h-full w-full object-cover"
+          width="400"
+          height="300"
+          onerror={`this.onerror=null;this.src='${assetUrl('pi', '', 'default.jpg')}'`}
+        />
+      </div>
+      <h2 class="mt-4 text-xl font-medium text-heading">
+        <Bi en={PI.name.en} zh={PI.name.zh} />
+      </h2>
+      <p class="mt-1 text-sm text-body">
+        <Bi en={PI.dept.en} zh={PI.dept.zh} />
+      </p>
+    </div>
+
+    <!-- Right: two sub-columns -->
+    <div class="grid gap-8 sm:grid-cols-2" data-stagger="100" data-anim-y="12" data-anim-duration="400">
+      <!-- Sub-column 1: joint appointments + education -->
+      <div class="flex flex-col gap-6">
+        <div data-animate>
+          <h3 class="text-xs font-medium tracking-wider text-brand-mid uppercase">
+            <Bi en={en.pi.jointAppointments} zh={zh.pi.jointAppointments} />
+          </h3>
+          <ul class="mt-2 space-y-1 text-sm text-body">
+            {PI.jointAppointments.map((j) => (
+              <li><Bi en={j.en} zh={j.zh} /></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="border-t border-[#EBF2FA] pt-6" data-animate>
+          <h3 class="text-xs font-medium tracking-wider text-brand-mid uppercase">
+            <Bi en={en.pi.education} zh={zh.pi.education} />
+          </h3>
+          <ol class="mt-3 space-y-4 border-l border-brand-light pl-5">
+            {PI.education.map((e) => (
+              <li class="relative">
+                <span class="absolute top-1.5 -left-[1.42rem] h-2 w-2 rounded-full bg-brand"></span>
+                <p class="font-mono text-xs text-muted">{e.years}</p>
+                <p class="text-sm font-medium text-heading">
+                  <Bi en={e.role.en} zh={e.role.zh} />
+                </p>
+                {e.institution.en && (
+                  <p class="text-sm text-body">
+                    <Bi en={e.institution.en} zh={e.institution.zh} />
+                  </p>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+
+      <!-- Sub-column 2: interests + courses -->
+      <div class="flex flex-col gap-6">
+        <div data-animate>
+          <h3 class="text-xs font-medium tracking-wider text-brand-mid uppercase">
+            <Bi en={en.pi.interests} zh={zh.pi.interests} />
+          </h3>
+          <div class="mt-2 flex flex-wrap gap-1.5">
+            {PI.interests.map((it) => (
+              <span class:list={['tag', DOMAIN_TAG_CLASS[it.domain]]}>
+                <Bi en={it.label.en} zh={it.label.zh} />
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div data-animate>
+          <h3 class="text-xs font-medium tracking-wider text-brand-mid uppercase">
+            <Bi en={en.pi.courses} zh={zh.pi.courses} />
+          </h3>
+          <div class="mt-2 flex flex-wrap gap-1.5">
+            {PI.courses.map((c) => (
+              <span class="pill-neutral"><Bi en={c.en} zh={c.zh} /></span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

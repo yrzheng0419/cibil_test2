@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { en, zh } from '../i18n';
+import { withBase } from '../lib/dom';
+---
+
+<BaseLayout title="404 · CIBI Lab">
+  <section class="mx-auto flex max-w-6xl flex-col items-center px-5 py-28 text-center">
+    <img
+      src={withBase('assets/logo/CIBI_Lab_logo.png')}
+      alt="CIBI Lab"
+      class="h-12 w-auto opacity-80"
+    />
+    <h1 class="mt-8 text-3xl font-medium">
+      <span class="lang-en">{en.notFound.title}</span>
+      <span class="lang-zh">{zh.notFound.title}</span>
+    </h1>
+    <p class="mt-3 text-body">
+      <span class="lang-en">{en.notFound.message}</span>
+      <span class="lang-zh">{zh.notFound.message}</span>
+    </p>
+    <a
+      href={withBase('/')}
+      class="mt-6 rounded-full bg-brand px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-dark"
+    >
+      <span class="lang-en">{en.notFound.back}</span>
+      <span class="lang-zh">{zh.notFound.back}</span>
+    </a>
+  </section>
+</BaseLayout>

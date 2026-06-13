@@ -1,0 +1,69 @@
+---
+import { withBase } from '../lib/dom';
+import { en, zh } from '../i18n';
+
+const links = [
+  { route: '/', en: en.nav.home, zh: zh.nav.home },
+  { route: '/publications', en: en.nav.publications, zh: zh.nav.publications },
+  { route: '/research', en: en.nav.research, zh: zh.nav.research },
+  { route: '/team', en: en.nav.team, zh: zh.nav.team },
+  { route: '/activities', en: en.nav.activities, zh: zh.nav.activities },
+];
+
+const norm = (p: string) => p.replace(/\/+$/, '') || '/';
+const current = norm(Astro.url.pathname);
+const home = norm(withBase('/'));
+
+function isActive(route: string): boolean {
+  const href = norm(withBase(route));
+  if (href === home) return current === home;
+  return current === href || current.startsWith(href + '/');
+}
+---
+
+<nav class="site-nav sticky top-0 z-50">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
+    <!-- Logo -->
+    <a href={withBase('/')} class="flex items-center" aria-label="CIBI Lab — Home">
+      <img
+        src={withBase('assets/logo/CIBI_Lab_logo.png')}
+        alt="CIBI Lab"
+        class="h-9 w-auto"
+        width="120"
+        height="36"
+      />
+    </a>
+
+    <!-- Nav links -->
+    <ul class="flex items-center gap-3 text-xs md:gap-6 md:text-sm">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={withBase(link.route)}
+              class:list={[
+                'nav-link pb-0.5 text-body transition-colors hover:text-heading',
+                { active: isActive(link.route) },
+              ]}
+            >
+              <span class="lang-en">{link.en}</span>
+              <span class="lang-zh">{link.zh}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Language toggle -->
+    <button
+      id="lang-toggle"
+      type="button"
+      aria-label="Toggle language / 切換語言"
+      class="rounded-full bg-[#162A30] px-3 py-1 text-xs font-medium text-white"
+    >
+      <span class="lang-opt lang-opt-en">EN</span>
+      <span class="px-0.5 opacity-40">|</span>
+      <span class="lang-opt lang-opt-zh">中</span>
+    </button>
+  </div>
+</nav>

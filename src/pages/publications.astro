@@ -1,14 +1,47 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import DataIsland from '../components/DataIsland.astro';
+import BackToTop from '../components/BackToTop.astro';
+import Bi from '../components/Bi.astro';
+import { fetchAllSheets } from '../lib/fetchSheets';
+import { renderPublications } from '../lib/render/publications';
 import { en, zh } from '../i18n';
+
+// Build-time fetch + prerender (SEO + instant first paint). The client
+// re-renders #pub-list from the JSON island on cibi:data (Spec §7).
+const data = await fetchAllSheets();
+const initialHtml = renderPublications(data.publications, 'en');
 ---
 
-<BaseLayout title={en.publications.heading + ' · CIBI Lab'}>
-  <section class="mx-auto max-w-6xl px-5 py-16">
-    <h1 class="text-3xl font-medium">
-      <span class="lang-en">{en.publications.heading}</span>
-      <span class="lang-zh">{zh.publications.heading}</span>
+<BaseLayout title={`${en.publications.heading} · CIBI Lab`}>
+  <section class="mx-auto max-w-4xl px-5 py-16">
+    <h1 class="mb-8 text-3xl font-medium" data-animate data-anim-y="10" data-anim-duration="400">
+      <Bi en={en.publications.heading} zh={zh.publications.heading} />
     </h1>
-    <p class="mt-4 text-muted">Phase C.</p>
+    <div id="pub-list" set:html={initialHtml}></div>
   </section>
+
+  <DataIsland data={data} />
+  <BackToTop />
 </BaseLayout>
+
+<script>
+  import { renderPublications } from '../lib/render/publications';
+  import { getLang } from '../scripts/langToggle';
+  import type { SheetData } from '../types';
+
+  let data: SheetData | null = null;
+
+  function rerender() {
+    const el = document.getElementById('pub-list');
+    if (el && data) el.innerHTML = renderPublications(data.publications, getLang());
+  }
+
+  // document-level listeners registered once; handlers grab the current
+  // #pub-list each time, so they survive View Transitions navigation.
+  document.addEventListener('cibi:data', (e) => {
+    data = (e as CustomEvent<SheetData>).detail;
+    rerender();
+  });
+  document.addEventListener('cibi:lang', rerender);
+</script>

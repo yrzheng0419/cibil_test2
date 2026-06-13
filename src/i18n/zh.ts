@@ -26,6 +26,7 @@ export const zh: Strings = {
     education: '學經歷',
     interests: '研究主題',
     courses: '授課課程',
+    contact: '聯絡方式',
   },
   publications: { heading: '研究發表' },
   research: {

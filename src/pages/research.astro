@@ -1,14 +1,119 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import DataIsland from '../components/DataIsland.astro';
+import Bi from '../components/Bi.astro';
+import { fetchAllSheets } from '../lib/fetchSheets';
+import { renderRecentPublications, renderRecentTheses } from '../lib/render/research';
+import { DOMAINS } from '../types';
+import { DOMAIN_SLUG, DOMAIN_LABELS, DOMAIN_ICONS } from '../i18n/domains';
+import { DOMAIN_DESCRIPTIONS } from '../i18n/content';
 import { en, zh } from '../i18n';
+
+const data = await fetchAllSheets();
 ---
 
-<BaseLayout title={en.research.heading + ' · CIBI Lab'}>
-  <section class="mx-auto max-w-6xl px-5 py-16">
-    <h1 class="text-3xl font-medium">
-      <span class="lang-en">{en.research.heading}</span>
-      <span class="lang-zh">{zh.research.heading}</span>
+<BaseLayout title={`${en.research.heading} · CIBI Lab`}>
+  <section class="mx-auto max-w-5xl px-5 py-16">
+    <h1 class="mb-8 text-center text-3xl font-medium" data-animate data-anim-y="10" data-anim-duration="400">
+      <Bi en={en.research.heading} zh={zh.research.heading} />
     </h1>
-    <p class="mt-4 text-muted">Phase C.</p>
+
+    <!-- Domain tabs (Spec §8) -->
+    <div role="tablist" class="mb-10 flex justify-center gap-3 md:grid md:grid-cols-4 md:gap-2" data-animate data-anim-duration="300">
+      {
+        DOMAINS.map((d, i) => (
+          <button
+            type="button"
+            role="tab"
+            class="research-tab flex flex-col items-center justify-center gap-1.5 rounded-full p-3 md:rounded-xl md:p-4"
+            data-domain={DOMAIN_SLUG[d]}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            aria-label={DOMAIN_LABELS[d].en}
+          >
+            <span set:html={DOMAIN_ICONS[d]} />
+            <span class="hidden text-sm font-medium md:block">
+              <Bi en={DOMAIN_LABELS[d].en} zh={DOMAIN_LABELS[d].zh} />
+            </span>
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Domain panels -->
+    {
+      DOMAINS.map((d, i) => {
+        const slug = DOMAIN_SLUG[d];
+        return (
+          <div class="research-panel" data-domain={slug} hidden={i !== 0}>
+            <p class="mx-auto mb-10 max-w-3xl text-center leading-relaxed text-body">
+              <Bi en={DOMAIN_DESCRIPTIONS[d].en} zh={DOMAIN_DESCRIPTIONS[d].zh} />
+            </p>
+            <div class="grid gap-10 md:grid-cols-2">
+              <div>
+                <h3 class="mb-3 text-xs font-medium tracking-wider text-brand-mid uppercase">
+                  <Bi en={en.research.recentPublications} zh={zh.research.recentPublications} />
+                </h3>
+                <div id={`rp-${slug}`} set:html={renderRecentPublications(data.publications, d, 'en')} />
+              </div>
+              <div>
+                <h3 class="mb-3 text-xs font-medium tracking-wider text-brand-mid uppercase">
+                  <Bi en={en.research.recentTheses} zh={zh.research.recentTheses} />
+                </h3>
+                <div id={`rt-${slug}`} set:html={renderRecentTheses(data.members, d, 'en')} />
+              </div>
+            </div>
+          </div>
+        );
+      })
+    }
   </section>
+
+  <DataIsland data={data} />
 </BaseLayout>
+
+<script>
+  import { renderRecentPublications, renderRecentTheses } from '../lib/render/research';
+  import { getLang } from '../scripts/langToggle';
+  import { DOMAINS } from '../types';
+  import { DOMAIN_SLUG } from '../i18n/domains';
+  import type { SheetData } from '../types';
+  import { animate } from 'animejs';
+
+  let data: SheetData | null = null;
+
+  function rerenderAll() {
+    if (!data) return;
+    const lang = getLang();
+    for (const d of DOMAINS) {
+      const slug = DOMAIN_SLUG[d];
+      const rp = document.getElementById(`rp-${slug}`);
+      const rt = document.getElementById(`rt-${slug}`);
+      if (rp) rp.innerHTML = renderRecentPublications(data.publications, d, lang);
+      if (rt) rt.innerHTML = renderRecentTheses(data.members, d, lang);
+    }
+  }
+
+  function selectTab(slug: string) {
+    document.querySelectorAll<HTMLElement>('.research-panel').forEach((p) => {
+      const on = p.getAttribute('data-domain') === slug;
+      p.hidden = !on;
+      if (on) animate(p, { opacity: [0, 1], translateY: [8, 0], duration: 300, ease: 'outQuad' });
+    });
+    document.querySelectorAll('.research-tab').forEach((b) => {
+      b.setAttribute('aria-selected', String(b.getAttribute('data-domain') === slug));
+    });
+  }
+
+  function setup() {
+    document.querySelectorAll('.research-tab').forEach((b) => {
+      b.addEventListener('click', () => selectTab(b.getAttribute('data-domain') || ''));
+    });
+  }
+
+  document.addEventListener('cibi:data', (e) => {
+    data = (e as CustomEvent<SheetData>).detail;
+    rerenderAll();
+  });
+  document.addEventListener('cibi:lang', rerenderAll);
+  document.addEventListener('astro:page-load', setup);
+</script>

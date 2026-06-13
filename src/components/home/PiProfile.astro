@@ -93,6 +93,20 @@ const photo = assetUrl('pi', PI.photo, 'default.jpg');
             ))}
           </div>
         </div>
+
+        <div data-animate>
+          <h3 class="text-xs font-medium tracking-wider text-brand-mid uppercase">
+            <Bi en={en.pi.contact} zh={zh.pi.contact} />
+          </h3>
+          <div class="mt-2 space-y-0.5 text-sm text-body">
+            <p>Tel:&nbsp;{PI.contact.tel}</p>
+            <p>Fax:&nbsp;{PI.contact.fax}</p>
+            <p>
+              Email:&nbsp;
+              <a href={`mailto:${PI.contact.email}`} class="text-brand-mid transition-colors hover:text-brand">{PI.contact.email}</a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

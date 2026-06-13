@@ -1,0 +1,48 @@
+---
+// Floating back-to-top button (Spec §7). Appears after scrolling 400px.
+---
+
+<button
+  id="back-to-top"
+  type="button"
+  aria-label="Back to top"
+  onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+  class="fixed right-6 bottom-6 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-brand text-white opacity-0 shadow-lg transition-colors hover:bg-brand-dark"
+  style="pointer-events: none;"
+>
+  <svg viewBox="0 0 20 20" fill="none" class="h-5 w-5" aria-hidden="true">
+    <path d="M10 16V5M5 10l5-5 5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+</button>
+
+<script>
+  import { animate } from 'animejs';
+
+  function setup() {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+
+    let shown = false;
+    const onScroll = () => {
+      const should = window.scrollY > 400;
+      if (should === shown) return;
+      shown = should;
+      animate(btn, {
+        opacity: should ? [0, 1] : [1, 0],
+        translateY: should ? [16, 0] : [0, 16],
+        duration: should ? 250 : 200,
+        ease: 'outQuad',
+      });
+      btn.style.pointerEvents = should ? 'auto' : 'none';
+    };
+
+    // Replace any listener left from a previous page (View Transitions).
+    const w = window as unknown as { __b2t?: () => void };
+    if (w.__b2t) window.removeEventListener('scroll', w.__b2t);
+    w.__b2t = onScroll;
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  document.addEventListener('astro:page-load', setup);
+</script>

@@ -204,3 +204,89 @@ html[data-lang="en"] #lang-toggle .lang-opt-en,
 html[data-lang="zh"] #lang-toggle .lang-opt-zh {
   opacity: 1;
 }
+
+/* ============================================================
+   Research domain tabs (Spec §8)
+   ============================================================ */
+.research-tab {
+  color: var(--color-body);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+.research-tab:hover {
+  color: var(--color-brand);
+}
+.research-tab[aria-selected="true"] {
+  color: var(--color-brand);
+  background: var(--color-brand-wash);
+  border-color: var(--color-brand-light);
+}
+
+/* ============================================================
+   Activities timeline (Spec §10)
+   ============================================================ */
+.activities-timeline {
+  position: relative;
+  padding-left: 1.25rem;
+}
+.activities-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #d6e4f0;
+}
+.year-group {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+.year-group::before {
+  content: "";
+  position: absolute;
+  left: -1.25rem;
+  top: 0.45rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--color-brand);
+  transform: translateX(-45%);
+}
+.year-heading {
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 500;
+  color: #d6e4f0;
+}
+.year-heading::after {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 2px;
+  margin-top: 0.4rem;
+  background: var(--color-brand);
+  border-radius: 2px;
+}
+@media (min-width: 768px) {
+  .year-group {
+    max-width: 62%;
+  }
+  .year-group.md\:text-right .year-heading::after {
+    margin-left: auto;
+  }
+}
+
+/* Activity type pills (Spec §10): Academic blue / Extracurricular purple */
+.pill-academic {
+  background: #e6f1fb;
+  color: #0c447c;
+}
+.pill-extra {
+  background: #eeedfe;
+  color: #3c3489;
+}

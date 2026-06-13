@@ -97,6 +97,11 @@ export const PI = {
       zh: '探索式多變量資料分析',
     },
   ] as BiPair[],
+  contact: {
+    tel: '+886-2-3366-9689',
+    fax: '+886-2-2362-7620',
+    email: 'chengying@ntu.edu.tw',
+  },
 };
 
 // Research page domain descriptions (Spec §8). ZH pending (Spec §17) — when
@@ -120,13 +125,12 @@ export const DOMAIN_DESCRIPTIONS: Record<Exclude<Domain, 'NA'>, BiPair> = {
   },
 };
 
-// Footer contact (Spec §11). PLACEHOLDERS — confirm before launch (Spec §17).
+// Footer contact (Spec §11).
 export const SITE = {
   labName: { en: 'CIBI Lab', zh: '智慧演算生醫影像實驗室' } as BiPair,
   address: {
-    en: 'No. 1, Sec. 4, Roosevelt Rd., Da’an Dist., Taipei 106, Taiwan',
-    zh: '106 臺北市大安區羅斯福路四段一號',
+    en: 'Lab 103 & 105, Agriculture Machinery Building,\nDepartment of Biomechatronics Engineering, National Taiwan University,\nNo. 1, Sec. 4, Roosevelt Rd., Taipei 10617, Taiwan (R.O.C.)',
+    zh: '10617 臺北市大安區羅斯福路四段一號\n國立臺灣大學生物機電工程學系　農機館 103、105 室',
   } as BiPair,
-  tel: '+886-2-3366-XXXX',
-  email: 'cibilab@ntu.edu.tw',
+  tel: '+886-2-3366-9820',
 };

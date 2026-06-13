@@ -48,11 +48,27 @@ export async function fetchAllSheets(forceFresh = false): Promise<SheetData> {
     fetchCsv(SHEET_CSV_URLS.gallery, keys.gallery),
   ]);
 
-  return {
+  const result: SheetData = {
     members: parseMembers(membersCsv),
     publications: parsePublications(publicationsCsv),
     gallery: parseGallery(galleryCsv),
   };
+
+  // Dev-only: fall back to sample data when no real CSV is configured yet, so
+  // pages can be developed/verified before the Sheets URLs exist (Spec §17).
+  // `import.meta.env.DEV` is statically false in production builds, so Vite
+  // strips this branch and the dynamic import entirely.
+  if (
+    import.meta.env.DEV &&
+    !result.members.length &&
+    !result.publications.length &&
+    !result.gallery.length
+  ) {
+    const { SAMPLE } = await import('../dev/sample');
+    return SAMPLE;
+  }
+
+  return result;
 }
 
 /** Empty dataset — useful as a guaranteed-safe default. */

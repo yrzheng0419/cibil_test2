@@ -23,15 +23,17 @@ function isActive(route: string): boolean {
 
 <nav class="site-nav sticky top-0 z-50">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
-    <!-- Logo -->
-    <a href={withBase('/')} class="flex items-center" aria-label="CIBI Lab — Home">
+    <!-- Logo (text fallback until the PNG is uploaded — Spec §17) -->
+    <a href={withBase('/')} class="flex items-center gap-2" aria-label="CIBI Lab — Home">
       <img
         src={withBase('assets/logo/CIBI_Lab_logo.png')}
         alt="CIBI Lab"
         class="h-9 w-auto"
         width="120"
         height="36"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"
       />
+      <span class="text-lg font-medium tracking-tight text-brand-dark" style="display:none">CIBI&nbsp;Lab</span>
     </a>
 
     <!-- Nav links -->

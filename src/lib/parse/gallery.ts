@@ -5,6 +5,12 @@ function str(value: string | undefined): string {
   return (value ?? '').trim();
 }
 
+/** Treats a literal "NA" as empty for free-text fields. */
+function txt(value: string | undefined): string {
+  const s = str(value);
+  return s.toUpperCase() === 'NA' ? '' : s;
+}
+
 /** Parses the `gallery` CSV (Spec §13 Sheet 3). One row per photo. */
 export function parseGallery(csv: string): GalleryItem[] {
   if (!csv.trim()) return [];
@@ -18,8 +24,8 @@ export function parseGallery(csv: string): GalleryItem[] {
       date: str(row.date),
       type: (str(row.type).toLowerCase() || 'academic') as GalleryType,
       title_en: str(row.title_en),
-      title_zh: str(row.title_zh),
-      remark: str(row.remark),
-      photo_filename: str(row.photo_filename),
+      title_zh: txt(row.title_zh),
+      remark: txt(row.remark),
+      photo_filename: txt(row.photo_filename),
     }));
 }

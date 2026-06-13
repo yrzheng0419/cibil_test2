@@ -1,0 +1,16 @@
+---
+import type { SheetData } from '../types';
+import { DATA_ISLAND_ID } from '../constants/sheets';
+
+// Bakes the build-time dataset into the page as a JSON island. The client
+// reads it for instant language/tab re-render, then background-refreshes
+// (see scripts/refresh.ts). `<` is escaped so a citation containing
+// "</script>" cannot break out of the tag.
+interface Props {
+  data: SheetData;
+}
+const { data } = Astro.props;
+const json = JSON.stringify(data).replace(/</g, '\\u003c');
+---
+
+<script type="application/json" id={DATA_ISLAND_ID} set:html={json}></script>

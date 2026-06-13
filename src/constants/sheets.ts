@@ -7,9 +7,9 @@
 //
 // PLACEHOLDERS — replace before launch (Spec §17 outstanding item).
 export const SHEET_CSV_URLS = {
-  members: '',
-  publications: '',
-  gallery: '',
+  members: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5NSqYQpFl-ad38rnq6kV9J5De7rV-ucdUdE8Ve9uKnJpFiHQpZ2RQe9BtO2WFvI9Nb8Qy2-8I6I_R/pub?gid=0&single=true&output=csv',
+  publications: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5NSqYQpFl-ad38rnq6kV9J5De7rV-ucdUdE8Ve9uKnJpFiHQpZ2RQe9BtO2WFvI9Nb8Qy2-8I6I_R/pub?gid=61824705&single=true&output=csv',
+  gallery: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5NSqYQpFl-ad38rnq6kV9J5De7rV-ucdUdE8Ve9uKnJpFiHQpZ2RQe9BtO2WFvI9Nb8Qy2-8I6I_R/pub?gid=677322007&single=true&output=csv',
 } as const;
 
 /** sessionStorage keys for client-side caching of fetched CSV (per session). */

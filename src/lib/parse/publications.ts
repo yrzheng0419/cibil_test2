@@ -5,6 +5,12 @@ function str(value: string | undefined): string {
   return (value ?? '').trim();
 }
 
+/** Treats a literal "NA" as empty for free-text fields. */
+function txt(value: string | undefined): string {
+  const s = str(value);
+  return s.toUpperCase() === 'NA' ? '' : s;
+}
+
 /** Parses the `publications` CSV (Spec §13 Sheet 2). The `citation` field is
  *  free text with commas/quotes — PapaParse handles RFC-4180 quoting. */
 export function parsePublications(csv: string): Publication[] {
@@ -20,6 +26,6 @@ export function parsePublications(csv: string): Publication[] {
       pub_type: (str(row.pub_type).toLowerCase() || 'journal') as PubType,
       domain: (str(row.domain) || 'NA') as Domain,
       citation: str(row.citation),
-      doi: str(row.doi),
+      doi: txt(row.doi),
     }));
 }

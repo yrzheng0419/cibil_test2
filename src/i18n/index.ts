@@ -25,6 +25,7 @@ export interface Strings {
     education: string;
     interests: string;
     courses: string;
+    contact: string;
   };
   publications: { heading: string };
   research: {

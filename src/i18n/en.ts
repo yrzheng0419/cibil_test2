@@ -27,6 +27,7 @@ export const en: Strings = {
     education: 'Education & Experience',
     interests: 'Research Interests',
     courses: 'Courses Taught',
+    contact: 'Contact',
   },
   publications: { heading: 'Publications' },
   research: {

@@ -1,10 +1,49 @@
 import type { Lang, Publication, Member, Domain } from '../../types';
-import { escapeHtml, pickField } from '../dom';
+import type { ResearchBlock, BiPair } from '../../i18n/content';
+import { escapeHtml, pickField, assetUrl } from '../dom';
 
 // Shared renderers for the Research page domain panels (Spec §8).
 
 function emptyState(lang: Lang): string {
   return `<p class="py-4 text-sm text-muted">${lang === 'zh' ? '尚無資料' : 'No records yet'}</p>`;
+}
+
+// --- Domain content blocks (text / image / video) ---------------------------
+// Rendered statically with both languages inline; CSS (.lang-en/.lang-zh)
+// toggles them, so no client re-render is needed for language.
+
+function biSpans(en: string, zh: string): string {
+  const e = escapeHtml(en);
+  const z = escapeHtml(zh && zh.trim() ? zh : en);
+  return `<span class="lang-en">${e}</span><span class="lang-zh">${z}</span>`;
+}
+
+function caption(cap: BiPair | undefined): string {
+  if (!cap) return '';
+  return `<figcaption>${biSpans(cap.en, cap.zh)}</figcaption>`;
+}
+
+export function renderDomainBlocks(blocks: ResearchBlock[]): string {
+  return blocks
+    .map((b) => {
+      if (b.type === 'text') {
+        return `<p class="research-text">${biSpans(b.en, b.zh)}</p>`;
+      }
+      if (b.type === 'image') {
+        const alt = escapeHtml(b.alt ?? '');
+        return `<figure class="research-media">
+          <img src="${assetUrl('research', b.src, '')}" alt="${alt}" loading="lazy">
+          ${caption(b.caption)}
+        </figure>`;
+      }
+      // video — embed a YouTube player by id
+      const id = encodeURIComponent(b.youtube);
+      return `<figure class="research-media">
+        <div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/${id}" title="YouTube video" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        ${caption(b.caption)}
+      </figure>`;
+    })
+    .join('');
 }
 
 /** Latest `limit` publications for a domain (newest first). */

@@ -104,25 +104,50 @@ export const PI = {
   },
 };
 
-// Research page domain descriptions (Spec §8). ZH pending (Spec §17) — when
-// zh is '', the render falls back to en.
-export const DOMAIN_DESCRIPTIONS: Record<Exclude<Domain, 'NA'>, BiPair> = {
-  'Medical Image': {
-    en: 'We develop computational methods for CT reconstruction, X-ray phase-contrast imaging, PET, and AI-assisted diagnosis — fusing imaging data with clinical records for multimodal insight.',
-    zh: '',
-  },
-  'Smart Agriculture': {
-    en: 'AIoT systems integrating computer vision with robotic control for precision farming — pest monitoring, crop yield prediction, and honeybee behaviour analysis.',
-    zh: '',
-  },
-  'Medical Data': {
-    en: 'Statistical and machine learning methods applied to electronic health records, clinical time-series, and multimodal patient data for early disease prediction and risk stratification.',
-    zh: '',
-  },
-  Biosensing: {
-    en: 'Rapid diagnostic kit development, aptamer-protein binding prediction, and IoT-integrated biosensor design for clinical and environmental monitoring.',
-    zh: '',
-  },
+// Research page content blocks (Spec §8). Each domain is a list of blocks
+// rendered top-to-bottom — text / image / video — so a domain can read like a
+// short blog with figures. Mix and order them freely (text, image, text,
+// video, ...). ZH text pending for some (Spec §17); when a text block's zh is
+// '', the render falls back to en.
+//   - image: a file under public/assets/research/   e.g. src: 'ct-pipeline.png'
+//   - video: a YouTube video ID                     e.g. youtube: 'dQw4w9WgXcQ'
+export type ResearchBlock =
+  | { type: 'text'; en: string; zh: string }
+  | { type: 'image'; src: string; alt?: string; caption?: BiPair }
+  | { type: 'video'; youtube: string; caption?: BiPair };
+
+export const DOMAIN_CONTENT: Record<Exclude<Domain, 'NA'>, ResearchBlock[]> = {
+  'Medical Image': [
+    {
+      type: 'text',
+      en: 'We develop computational methods for CT reconstruction, X-ray phase-contrast imaging, PET, and AI-assisted diagnosis — fusing imaging data with clinical records for multimodal insight.',
+      zh: '',
+    },
+    // Add image/video blocks here when ready, e.g.:
+    // { type: 'image', src: 'ct-pipeline.png', caption: { en: 'CT pipeline', zh: 'CT 流程' } },
+    // { type: 'video', youtube: 'VIDEO_ID', caption: { en: 'Demo', zh: '示範' } },
+  ],
+  'Smart Agriculture': [
+    {
+      type: 'text',
+      en: 'AIoT systems integrating computer vision with robotic control for precision farming — pest monitoring, crop yield prediction, and honeybee behaviour analysis.',
+      zh: '',
+    },
+  ],
+  'Medical Data': [
+    {
+      type: 'text',
+      en: 'Statistical and machine learning methods applied to electronic health records, clinical time-series, and multimodal patient data for early disease prediction and risk stratification.',
+      zh: '',
+    },
+  ],
+  Biosensing: [
+    {
+      type: 'text',
+      en: 'Rapid diagnostic kit development, aptamer-protein binding prediction, and IoT-integrated biosensor design for clinical and environmental monitoring.',
+      zh: '',
+    },
+  ],
 };
 
 // Footer contact (Spec §11).

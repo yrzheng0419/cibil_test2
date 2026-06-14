@@ -48,16 +48,14 @@ export function renderActivities(gallery: GalleryItem[], lang: Lang): string {
 
   return years
     .map((y) => {
-      // Even years align left, odd years align right (desktop); Spec §10.
-      const right = parseInt(y, 10) % 2 !== 0;
       const items = byYear
         .get(y)!
         .sort((a, b) => b.date.localeCompare(a.date))
         .map((g) => card(g, lang))
         .join('');
-      return `<div class="year-group ${right ? 'md:ml-auto md:text-right' : 'md:mr-auto'}">
+      return `<div class="year-group">
           <h2 class="year-heading">${y}</h2>
-          <div class="card-row mt-3 flex gap-4 overflow-x-auto pb-2 text-left ${right ? 'md:justify-end' : ''}">${items}</div>
+          <div class="card-row mt-3 flex gap-4 overflow-x-auto pb-2">${items}</div>
         </div>`;
     })
     .join('');

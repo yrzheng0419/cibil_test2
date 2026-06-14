@@ -104,7 +104,7 @@ Go to the `members` tab. Add a new row. Fill in the columns:
 | `research_title_zh` | Working research title (Chinese) | `深度學習應用於CT影像分割` |
 | `thesis_url` | Leave blank until thesis is published | *(blank)* |
 | `email` | NTU email address (optional) | `r14631006@ntu.edu.tw` |
-| `photo_filename` | Photo filename (see Section 5) | `chang-ching-han.jpg` |
+| `photo_filename` | Photo filename (see Section 5) | `chang-ching-han.png` |
 
 > **Domain values** (copy exactly, case-sensitive):
 > `Medical Image` · `Smart Agriculture` · `Medical Data` · `Biosensing` · `NA`
@@ -156,7 +156,7 @@ Go to the `gallery` tab. Add one row **per photo**. If an event has three photos
 | `title_en` | Event name (English) | `2026 Lab Graduation Dinner` |
 | `title_zh` | Event name (Chinese) | `2026 畢業聚餐` |
 | `remark` | Extra notes (optional). If none, fill `NA` | `Celebrating five graduating members.` |
-| `photo_filename` | Photo filename (see Section 5) | `2026-graduation-01.jpg` |
+| `photo_filename` | Photo filename (see Section 5) | `2026-graduation-01.png` |
 
 ---
 
@@ -168,9 +168,9 @@ Photos are stored in this repository under `public/assets/`. You need to upload 
 
 | Type | Folder | Aspect ratio | Recommended size | Filename format |
 |---|---|---|---|---|
-| Member photos | `public/assets/members/` | 3:4 (portrait) | ≤ 200 KB | `firstname-lastname.jpg` |
-| Activity photos | `public/assets/gallery/` | 4:3 (landscape) | ≤ 300 KB | `YYYY-event-slug-NN.jpg` |
-| PI photo | `public/assets/pi/` | 4:3 (landscape) | ≤ 300 KB | `chou-cheng-ying.jpg` |
+| Member photos | `public/assets/members/` | 3:4 (portrait) | ≤ 200 KB | `firstname-lastname.png` |
+| Activity photos | `public/assets/gallery/` | 4:3 (landscape) | ≤ 300 KB | `YYYY-event-slug-NN.png` |
+| PI photo | `public/assets/pi/` | 4:3 (landscape) | ≤ 300 KB | `chou-cheng-ying.png` |
 
 > Compress photos before uploading using [Squoosh](https://squoosh.app) (free, browser-based). Target JPEG quality 80%.
 
@@ -188,8 +188,8 @@ Photos are stored in this repository under `public/assets/`. You need to upload 
 
 If a member or activity has no photo yet, leave `photo_filename` blank in Google Sheets. The site will automatically show the default placeholder image:
 
-- Members: `public/assets/members/default.jpg`
-- Gallery: `public/assets/gallery/default.jpg`
+- Members: `public/assets/members/default.png`
+- Gallery: `public/assets/gallery/default.png`
 
 Replace these files at any time to change the placeholder appearance site-wide.
 
@@ -249,8 +249,8 @@ cibi-lab/
 │   └── assets/
 │       ├── logo/               ← CIBIL_LOGO.png
 │       ├── pi/                 ← PI photo
-│       ├── members/            ← Member photos + default.jpg
-│       └── gallery/            ← Activity photos + default.jpg
+│       ├── members/            ← Member photos + default.png
+│       └── gallery/            ← Activity photos + default.png
 │
 ├── src/
 │   ├── layouts/

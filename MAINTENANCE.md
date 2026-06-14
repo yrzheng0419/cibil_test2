@@ -36,10 +36,24 @@
 
 ---
 
-## 3. 改教授 / 頁面固定文字 → `src/i18n/content.ts`
+## 3. 改頁面固定文字（不是來自 Google Sheets 的內容）
 
-教授的學經歷、研究主題、授課課程、聯絡方式，以及研究領域描述、頁尾聯絡資訊，都是寫死在 `src/i18n/content.ts`。
-改完 push 到 `main` 自動部署。其餘介面文字（選單、按鈕）在 `src/i18n/en.ts` / `zh.ts`。
+凡是「不在 Sheets 裡」的文字（首頁文案、研究領域敘述、教授資料、介面字…）都寫死在 `src/i18n/` 資料夾。改完 push 到 `main` 自動部署。對照表：
+
+| 想改的內容 | 檔案 | 變數 / 位置 |
+|---|---|---|
+| 首頁：上方小字、主標題、副標題、**副標題下方的段落**、兩個 CTA 按鈕文字 | `src/i18n/en.ts`（英）<br>`src/i18n/zh.ts`（中） | `hero`（`eyebrow` / `h1` / `subtitle` / `body` / `ctaResearch` / `ctaTeam`） |
+| **研究領域各領域的敘述** | `src/i18n/content.ts` | `DOMAIN_DESCRIPTIONS` |
+| 教授資料（學經歷、研究主題、授課課程、聯絡方式） | `src/i18n/content.ts` | `PI` |
+| 頁尾地址 / 電話 | `src/i18n/content.ts` | `SITE` |
+| 選單、各區塊標題、按鈕等介面字 | `src/i18n/en.ts` / `zh.ts` | `nav` / `team` / `research` … |
+
+**中英文怎麼分：**
+
+- `en.ts` 是整份英文、`zh.ts` 是整份中文，兩個檔案結構相同 —— 要改某段就把**兩個檔案的同一欄位**都改。例：首頁段落改 `en.ts` 的 `hero.body`（英）和 `zh.ts` 的 `hero.body`（中）。
+- `content.ts` 則是中英寫在一起，像 `{ en: '...', zh: '...' }`，一次改兩種語言。研究領域的中文敘述目前留空（暫時顯示英文），把 `DOMAIN_DESCRIPTIONS` 裡各領域的 `zh` 填上即可。
+
+> 改這些檔案只需要動引號 `'...'` 內的文字，不要改到變數名稱或標點結構。
 
 ---
 

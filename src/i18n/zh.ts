@@ -11,7 +11,7 @@ export const zh: Strings = {
     publications: '研究發表',
     research: '研究領域',
     team: '研究團隊',
-    activities: '實驗室活動',
+    activities: '團隊動態',
   },
   hero: {
     eyebrow: '歡迎來到',
@@ -43,7 +43,7 @@ export const zh: Strings = {
     ra: '研究助理',
   },
   activities: {
-    heading: '實驗室活動',
+    heading: '團隊動態',
     academic: '學術',
     extracurricular: '課外',
   },

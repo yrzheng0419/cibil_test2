@@ -21,7 +21,7 @@ export interface InterestTag {
 }
 
 export const PI = {
-  photo: 'chou-cheng-ying.jpg',
+  photo: 'chou-cheng-ying.png',
   name: { en: 'Prof. Cheng-Ying Chou', zh: '周呈霙 教授' } as BiPair,
   dept: {
     en: 'Department of Biomechatronics Engineering, NTU',

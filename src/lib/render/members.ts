@@ -18,8 +18,8 @@ const DEGREE_LABEL: Record<DegreeType, string> = {
 };
 
 function photo(m: Member): string {
-  const src = assetUrl('members', m.photo_filename, 'default.jpg');
-  const fallback = assetUrl('members', '', 'default.jpg');
+  const src = assetUrl('members', m.photo_filename, 'default.png');
+  const fallback = assetUrl('members', '', 'default.png');
   const alt = escapeHtml(m.name_en);
   return `<div class="aspect-[3/4] w-full overflow-hidden rounded-lg bg-brand-wash">
       <img src="${src}" alt="${alt}" class="h-full w-full object-cover" loading="lazy" onerror="this.onerror=null;this.src='${fallback}'">

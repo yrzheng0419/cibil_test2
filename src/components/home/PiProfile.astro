@@ -5,7 +5,7 @@ import { PI } from '../../i18n/content';
 import { assetUrl } from '../../lib/dom';
 import { DOMAIN_TAG_CLASS } from '../../types';
 
-const photo = assetUrl('pi', PI.photo, 'default.jpg');
+const photo = assetUrl('pi', PI.photo, 'default.png');
 ---
 
 <section class="mx-auto max-w-6xl px-5 py-12">
@@ -19,7 +19,7 @@ const photo = assetUrl('pi', PI.photo, 'default.jpg');
           class="h-full w-full object-cover"
           width="400"
           height="300"
-          onerror={`this.onerror=null;this.src='${assetUrl('pi', '', 'default.jpg')}'`}
+          onerror={`this.onerror=null;this.src='${assetUrl('pi', '', 'default.png')}'`}
         />
       </div>
       <h2 class="mt-4 text-xl font-medium text-heading">

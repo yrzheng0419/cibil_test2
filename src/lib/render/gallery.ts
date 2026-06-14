@@ -10,8 +10,8 @@ const TYPE_META: Record<GalleryItem['type'], { en: string; zh: string; cls: stri
 };
 
 function card(g: GalleryItem, lang: Lang): string {
-  const src = assetUrl('gallery', g.photo_filename, 'default.jpg');
-  const fallback = assetUrl('gallery', '', 'default.jpg');
+  const src = assetUrl('gallery', g.photo_filename, 'default.png');
+  const fallback = assetUrl('gallery', '', 'default.png');
   const title = escapeHtml(pickField(g.title_en, g.title_zh, lang));
   const t = TYPE_META[g.type];
   const typeLabel = lang === 'zh' ? t.zh : t.en;

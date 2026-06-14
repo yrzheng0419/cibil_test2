@@ -3,10 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import DataIsland from '../components/DataIsland.astro';
 import Bi from '../components/Bi.astro';
 import { fetchAllSheets } from '../lib/fetchSheets';
-import { renderRecentPublications, renderRecentTheses } from '../lib/render/research';
+import { renderRecentPublications, renderRecentTheses, renderDomainBlocks } from '../lib/render/research';
 import { DOMAINS } from '../types';
 import { DOMAIN_SLUG, DOMAIN_LABELS, DOMAIN_ICONS } from '../i18n/domains';
-import { DOMAIN_DESCRIPTIONS } from '../i18n/content';
+import { DOMAIN_CONTENT } from '../i18n/content';
 import { en, zh } from '../i18n';
 
 const data = await fetchAllSheets();
@@ -45,9 +45,7 @@ const data = await fetchAllSheets();
         const slug = DOMAIN_SLUG[d];
         return (
           <div class="research-panel" data-domain={slug} hidden={i !== 0}>
-            <p class="mx-auto mb-10 max-w-3xl text-center leading-relaxed text-body">
-              <Bi en={DOMAIN_DESCRIPTIONS[d].en} zh={DOMAIN_DESCRIPTIONS[d].zh} />
-            </p>
+            <div class="research-content mx-auto mb-10 max-w-3xl" set:html={renderDomainBlocks(DOMAIN_CONTENT[d])} />
             <div class="grid gap-10 md:grid-cols-2">
               <div>
                 <h3 class="mb-3 text-xs font-medium tracking-wider text-brand-mid uppercase">

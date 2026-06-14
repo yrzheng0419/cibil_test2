@@ -43,7 +43,7 @@
 | 想改的內容 | 檔案 | 變數 / 位置 |
 |---|---|---|
 | 首頁：上方小字、主標題、副標題、**副標題下方的段落**、兩個 CTA 按鈕文字 | `src/i18n/en.ts`（英）<br>`src/i18n/zh.ts`（中） | `hero`（`eyebrow` / `h1` / `subtitle` / `body` / `ctaResearch` / `ctaTeam`） |
-| **研究領域各領域的敘述** | `src/i18n/content.ts` | `DOMAIN_DESCRIPTIONS` |
+| **研究領域的圖文／影片**（可分段、放圖、嵌影片） | `src/i18n/content.ts` | `DOMAIN_CONTENT`（見下方 § 3.1） |
 | 教授資料（學經歷、研究主題、授課課程、聯絡方式） | `src/i18n/content.ts` | `PI` |
 | 頁尾地址 / 電話 | `src/i18n/content.ts` | `SITE` |
 | 選單、各區塊標題、按鈕等介面字 | `src/i18n/en.ts` / `zh.ts` | `nav` / `team` / `research` … |
@@ -51,9 +51,34 @@
 **中英文怎麼分：**
 
 - `en.ts` 是整份英文、`zh.ts` 是整份中文，兩個檔案結構相同 —— 要改某段就把**兩個檔案的同一欄位**都改。例：首頁段落改 `en.ts` 的 `hero.body`（英）和 `zh.ts` 的 `hero.body`（中）。
-- `content.ts` 則是中英寫在一起，像 `{ en: '...', zh: '...' }`，一次改兩種語言。研究領域的中文敘述目前留空（暫時顯示英文），把 `DOMAIN_DESCRIPTIONS` 裡各領域的 `zh` 填上即可。
+- `content.ts` 則是中英寫在一起，像 `{ en: '...', zh: '...' }`，一次改兩種語言。研究領域的中文敘述目前留空（暫時顯示英文），把 `DOMAIN_CONTENT` 裡各領域 `text` 區塊的 `zh` 填上即可（見 § 3.1）。
 
 > 改這些檔案只需要動引號 `'...'` 內的文字，不要改到變數名稱或標點結構。
+
+### 3.1 研究領域的圖文／影片（區塊式）
+
+每個研究領域的內容是 `src/i18n/content.ts` 裡 `DOMAIN_CONTENT` 的一個**區塊清單**，由上到下依序顯示。你可以放**任意數量、任意順序**的三種區塊，做成像分段 Blog 的圖文：
+
+```ts
+'Medical Image': [
+  // 一段文字（中英）
+  { type: 'text', en: 'English paragraph...', zh: '中文段落…' },
+
+  // 一張圖（檔案放 public/assets/research/）；caption 選填
+  { type: 'image', src: 'ct-pipeline.png', caption: { en: 'CT pipeline', zh: 'CT 流程示意' } },
+
+  // 再接一段文字
+  { type: 'text', en: '...', zh: '…' },
+
+  // 一段 YouTube 影片（只填影片 ID）；caption 選填
+  { type: 'video', youtube: 'dQw4w9WgXcQ', caption: { en: 'Demo', zh: '示範影片' } },
+],
+```
+
+- **影片**：填 YouTube 影片 ID（不是整個網址）。網址 `https://www.youtube.com/watch?v=dQw4w9WgXcQ` 的 ID 就是 `v=` 後面那段 `dQw4w9WgXcQ`。建議影片都放 YouTube，**不要**把影片檔放進 repo。
+- **圖片**：把圖檔放進 `public/assets/research/`，`src` 填檔名即可。
+- `caption`、`alt` 為選填，可省略。
+- 只想要純文字介紹，就只放一個 `text` 區塊（目前各領域即是如此）。
 
 ---
 

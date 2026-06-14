@@ -104,7 +104,7 @@ GitHub Pages 提供預先編譯好的 HTML / CSS / JS
 | `research_title_zh` | 研究題目（中文） | `深度學習應用於CT影像分割` |
 | `thesis_url` | 在讀生留空，畢業後填入論文連結 | *（空白）* |
 | `email` | NTU 電子郵件（選填） | `r14631006@ntu.edu.tw` |
-| `photo_filename` | 照片檔名（見第 5 節） | `chang-ching-han.jpg` |
+| `photo_filename` | 照片檔名（見第 5 節） | `chang-ching-han.png` |
 
 > **domain 欄位允許值**（請完整複製，區分大小寫）：
 > `Medical Image` · `Smart Agriculture` · `Medical Data` · `Biosensing` · `NA`
@@ -156,7 +156,7 @@ GitHub Pages 提供預先編譯好的 HTML / CSS / JS
 | `title_en` | 活動名稱（英文） | `2026 Lab Graduation Dinner` |
 | `title_zh` | 活動名稱（中文） | `2026 畢業聚餐` |
 | `remark` | 活動補充說明（選填）。無說明填 `NA` | `慶祝五位成員順利畢業。` |
-| `photo_filename` | 照片檔名（見第 5 節） | `2026-graduation-01.jpg` |
+| `photo_filename` | 照片檔名（見第 5 節） | `2026-graduation-01.png` |
 
 ---
 
@@ -168,9 +168,9 @@ GitHub Pages 提供預先編譯好的 HTML / CSS / JS
 
 | 類型 | 存放資料夾 | 比例 | 建議檔案大小 | 命名格式 |
 |---|---|---|---|---|
-| 成員照片 | `public/assets/members/` | 3:4（直式） | ≤ 200 KB | `firstname-lastname.jpg` |
-| 活動照片 | `public/assets/gallery/` | 4:3（橫式） | ≤ 300 KB | `YYYY-活動名稱-NN.jpg` |
-| 教授照片 | `public/assets/pi/` | 4:3（橫式） | ≤ 300 KB | `chou-cheng-ying.jpg` |
+| 成員照片 | `public/assets/members/` | 3:4（直式） | ≤ 200 KB | `firstname-lastname.png` |
+| 活動照片 | `public/assets/gallery/` | 4:3（橫式） | ≤ 300 KB | `YYYY-活動名稱-NN.png` |
+| 教授照片 | `public/assets/pi/` | 4:3（橫式） | ≤ 300 KB | `chou-cheng-ying.png` |
 
 > 上傳前請先壓縮圖片，推薦使用免費工具 [Squoosh](https://squoosh.app)（網頁版，不需安裝）。JPEG 品質設定 80 即可。
 
@@ -188,8 +188,8 @@ GitHub Pages 提供預先編譯好的 HTML / CSS / JS
 
 若成員或活動尚未有照片，`photo_filename` 欄位留空即可，網站會自動顯示預設佔位圖片：
 
-- 成員：`public/assets/members/default.jpg`
-- 活動：`public/assets/gallery/default.jpg`
+- 成員：`public/assets/members/default.png`
+- 活動：`public/assets/gallery/default.png`
 
 隨時替換這兩個檔案，即可全站更新佔位圖樣式。
 
@@ -249,8 +249,8 @@ cibi-lab/
 │   └── assets/
 │       ├── logo/                 ← CIBIL_LOGO.png（透明背景版本）
 │       ├── pi/                   ← 教授照片
-│       ├── members/              ← 成員照片 + default.jpg
-│       └── gallery/              ← 活動照片 + default.jpg
+│       ├── members/              ← 成員照片 + default.png
+│       └── gallery/              ← 活動照片 + default.png
 │
 ├── src/
 │   ├── layouts/

@@ -272,14 +272,6 @@ html[data-lang="zh"] #lang-toggle .lang-opt-zh {
   background: var(--color-brand);
   border-radius: 2px;
 }
-@media (min-width: 768px) {
-  .year-group {
-    max-width: 62%;
-  }
-  .year-group.md\:text-right .year-heading::after {
-    margin-left: auto;
-  }
-}
 
 /* Activity type pills (Spec §10): Academic blue / Extracurricular purple */
 .pill-academic {
